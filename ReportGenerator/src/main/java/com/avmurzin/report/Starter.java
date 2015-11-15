@@ -18,16 +18,17 @@ public class Starter {
 	
 	public static void main(String[] args) throws ParseException {
 		
-		DateFormat inFormat = new SimpleDateFormat( "yyyy-MM-dd hh:mm:ss");
+		DateFormat inFormat = new SimpleDateFormat( "yyyy-MM-dd HH:mm:ss");
 		Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("GMT"));
 		Long timeUp, timeDown;
 		
 		Calculator calc = new Calculator();
 		
+		
 		if (args != null && args.length > 0 && args[0].equals("fill")) {
 			System.out.println("Fill database...");
 			try {
-				calc.fillDatabase("/home/murzin/mnt/sdb1/storage/java_programming/отчет_по_всем_задачам_11.11.2015.csv");
+				calc.fillDatabase("/home/murzin/mnt/sdb1/storage/java_programming/отчет_по_всем_задачам_2_15.11.2015.csv");
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -41,9 +42,9 @@ public class Starter {
 			
 			System.out.println(timeUp + ":" + timeDown);
 			
-			calc.calcTaskByType(timeUp, timeDown);
-			calc.calcTaskByClassification(timeUp, timeDown);
-			calc.calcTaskByManager(timeUp, timeDown);
+			calc.calcTaskByType(timeUp, timeDown, ";");
+			calc.calcTaskByClassification(timeUp, timeDown, ";");
+			calc.calcTaskByManager(timeUp, timeDown, ";");
 		}
 		
 
