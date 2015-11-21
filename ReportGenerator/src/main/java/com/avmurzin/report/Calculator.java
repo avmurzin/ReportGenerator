@@ -487,6 +487,10 @@ public class Calculator {
 	 * @return
 	 */
 	private Long getDuration(Long registration, Long commit) {
+		if (registration == null) {
+			
+			return 0L;
+		}
 		if (registration > commit) {
 			return 0L;
 		}
