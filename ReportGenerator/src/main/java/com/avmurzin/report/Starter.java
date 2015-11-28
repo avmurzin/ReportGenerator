@@ -28,7 +28,7 @@ public class Starter {
 		if (args != null && args.length > 0 && args[0].equals("fill")) {
 			System.out.println("Fill database...");
 			try {
-				calc.fillDatabase("/home/murzin/mnt/sdb1/storage/java_programming/отчет_по_всем_задачам_2_15.11.2015.csv");
+				calc.fillDatabase("/home/murzin/Соя/отчет_28.11/Заявки_в_ИТИЛ_28.11.csv");
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -40,11 +40,26 @@ public class Starter {
 			calendar.setTime(inFormat.parse(args[2]));
 			timeDown = calendar.getTimeInMillis()/1000;
 			
-			System.out.println(timeUp + ":" + timeDown);
-			
-			calc.calcTaskByType(timeUp, timeDown, ";");
-			calc.calcTaskByClassification(timeUp, timeDown, ";");
-			calc.calcTaskByManager(timeUp, timeDown, ";");
+			//System.out.println(timeUp + ":" + timeDown);
+			System.out.println("Time_period" + ":" + args[1] + ":" + args[2]);
+			System.out.println("");
+			System.out.println("Выполнено задач группой администраторов");
+			calc.calcTaskByType(timeUp, timeDown, ";", "otkis_admin");
+			System.out.println("");
+			System.out.println("Выполнено задач группой поддержки");
+			calc.calcTaskByType(timeUp, timeDown, ";", "otkis_support");
+			System.out.println("");
+			System.out.println("Выполнено задач разной классификации группой администраторов");
+			calc.calcTaskByClassification(timeUp, timeDown, ";", "otkis_admin");
+			System.out.println("");
+			System.out.println("Выполнено задач разной классификации группой поддержки");
+			calc.calcTaskByClassification(timeUp, timeDown, ";", "otkis_support");
+			System.out.println("");
+			System.out.println("Выполнено задач группой администраторов по персоналиям");
+			calc.calcTaskByManager(timeUp, timeDown, ";", "otkis_admin");
+			System.out.println("");
+			System.out.println("Выполнено задач группой поддержки по персоналиям");
+			calc.calcTaskByManager(timeUp, timeDown, ";", "otkis_support");
 		}
 		
 

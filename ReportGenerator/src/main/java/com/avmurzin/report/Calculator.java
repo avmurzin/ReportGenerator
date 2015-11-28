@@ -73,7 +73,7 @@ public class Calculator {
 	 * @param timeDown
 	 * @return
 	 */
-	public boolean calcTaskByType(Long timeUp, Long timeDown, String delimeter) {
+	public boolean calcTaskByType(Long timeUp, Long timeDown, String delimeter, String group) {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		session.beginTransaction();
 		
@@ -114,7 +114,7 @@ public class Calculator {
 		
 		//для каждой задачи считаем типы и выход за крайний срок
 		for(String taskId : tasks.keySet()) {
-			query = session.createSQLQuery("SELECT * FROM task t WHERE t.taskId = :taskId AND manager IN (SELECT user FROM otkis)").addEntity(Task.class).setParameter("taskId", taskId);
+			query = session.createSQLQuery("SELECT * FROM task t WHERE t.taskId = :taskId AND manager IN (SELECT user FROM "+ group + ")").addEntity(Task.class).setParameter("taskId", taskId);
 			
 			if(query.list().size() != 0) {
 				Task task = (Task) query.list().get(0);
@@ -173,7 +173,7 @@ public class Calculator {
 	 * @param timeDown
 	 * @return
 	 */
-	public boolean calcTaskByClassification(Long timeUp, Long timeDown, String delimeter) {
+	public boolean calcTaskByClassification(Long timeUp, Long timeDown, String delimeter, String group) {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		session.beginTransaction();
 		
@@ -224,7 +224,7 @@ public class Calculator {
 		
 		//для каждой задачи считаем типы и выход за крайний срок
 		for(String taskId : tasks.keySet()) {
-			query = session.createSQLQuery("SELECT * FROM task t WHERE t.taskId = :taskId AND manager IN (SELECT user FROM otkis)").addEntity(Task.class).setParameter("taskId", taskId);
+			query = session.createSQLQuery("SELECT * FROM task t WHERE t.taskId = :taskId AND manager IN (SELECT user FROM "+ group + ")").addEntity(Task.class).setParameter("taskId", taskId);
 			
 			if(query.list().size() != 0) {
 				Task task = (Task) query.list().get(0);
@@ -289,7 +289,7 @@ public class Calculator {
 	 * @param timeDown
 	 * @return
 	 */
-	public boolean calcTaskByManager(Long timeUp, Long timeDown, String delimeter) {
+	public boolean calcTaskByManager(Long timeUp, Long timeDown, String delimeter, String group) {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		session.beginTransaction();
 		
@@ -298,7 +298,7 @@ public class Calculator {
 		Query query;
 		
 		//создать список исполнителей задач (по всему массиву данных), должен вернуться массив строк.
-		query = session.createSQLQuery("SELECT DISTINCT user FROM otkis");
+		query = session.createSQLQuery("SELECT DISTINCT user FROM " + group);
 		List<String> result = (List<String>) query.list();
 		
 		for (String s : result) {
@@ -329,7 +329,7 @@ public class Calculator {
 		
 		//для каждой задачи считаем типы и выход за крайний срок
 		for(String taskId : tasks.keySet()) {
-			query = session.createSQLQuery("SELECT * FROM task t WHERE t.taskId = :taskId AND manager IN (SELECT user FROM otkis)").addEntity(Task.class).setParameter("taskId", taskId);
+			query = session.createSQLQuery("SELECT * FROM task t WHERE t.taskId = :taskId AND manager IN (SELECT user FROM "+ group + ")").addEntity(Task.class).setParameter("taskId", taskId);
 			
 			if(query.list().size() != 0) {
 				Task task = (Task) query.list().get(0);
